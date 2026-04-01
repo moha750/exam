@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1 id="app-title">الاختبار</h1>
+    </header>
+
+    <main class="container">
+
+        <!-- Screen 1: Loading -->
+        <div class="screen active" id="loading-screen">
+            <div class="card" style="text-align:center;">
+                <div class="spinner"></div>
+                <p>جارٍ تحميل الاختبار...</p>
+            </div>
+        </div>
+
+        <!-- Screen 2: Error -->
+        <div class="screen" id="error-screen">
+            <div class="card" style="text-align:center;">
+                <div style="font-size:3rem; margin-bottom:16px;">&#9888;</div>
+                <h2>خطأ في تحميل الاختبار</h2>
+                <p id="error-message" style="margin:16px 0; color:var(--text-secondary);">لم يتم العثور على ملف الاختبار</p>
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px;">
+                    تأكد من وجود ملف <strong>exam.json</strong> في نفس المجلد، وأنك تفتح الصفحة عبر سيرفر محلي (Live Server)
+                </p>
+                <button class="btn btn-primary" onclick="location.reload()">إعادة المحاولة</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Welcome -->
+        <div class="screen" id="welcome-screen">
+            <div class="card">
+                <h2 id="exam-title" style="text-align:center; font-size:1.5rem; margin-bottom:8px;"></h2>
+                <p style="text-align:center; color:var(--text-secondary); margin-bottom:24px;">
+                    عدد الأسئلة الكلي: <strong id="total-count">0</strong> سؤال
+                </p>
+
+                <div class="form-group">
+                    <label>اختر عدد الأسئلة التي تريد الاختبار بها:</label>
+                    <div class="slider-container">
+                        <input type="range" id="question-slider" min="1" max="75" value="10">
+                    </div>
+                    <div class="slider-value">
+                        <span id="slider-display">10</span> سؤال
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-large" id="start-btn">ابدأ الاختبار</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: Quiz -->
+        <div class="screen" id="quiz-screen">
+            <!-- Score Counter -->
+            <div class="score-counter">
+                <div class="counter-item counter-correct">
+                    <span id="correct-count">0</span> صح
+                </div>
+                <div class="counter-item counter-wrong">
+                    <span id="wrong-count">0</span> خطأ
+                </div>
+                <div class="counter-item counter-remaining">
+                    <span id="remaining-count">0</span> متبقي
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="card">
+                <div class="question-header">
+                    <span class="question-counter" id="question-counter"></span>
+                    <span class="topic-badge" id="question-topic"></span>
+                </div>
+                <h3 class="question-text" id="question-text"></h3>
+                <div class="options-container" id="options-container"></div>
+
+                <!-- Hint -->
+                <div id="hint-container" style="display:none;">
+                    <div class="explanation-box">
+                        <strong>التلميح:</strong>
+                        <span id="hint-text"></span>
+                    </div>
+                </div>
+
+                <!-- Feedback after answer -->
+                <div id="feedback-container" style="display:none;">
+                    <div class="feedback-box" id="feedback-box">
+                        <span id="feedback-text"></span>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-btn" disabled>السابق</button>
+                    <button class="btn btn-hint" id="hint-btn">تلميح</button>
+                    <button class="btn btn-primary" id="next-btn">التالي</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 5: Results -->
+        <div class="screen" id="results-screen">
+            <div class="card results-header">
+                <h2>نتيجة الاختبار</h2>
+                <div class="score-circle" id="score-circle">
+                    <span class="score-value" id="score-value">0%</span>
+                </div>
+                <p class="score-text" id="score-text"></p>
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="retry-btn">إعادة الاختبار</button>
+                    <button class="btn btn-outline" id="review-btn">مراجعة الإجابات</button>
+                </div>
+            </div>
+            <div class="review-container" id="review-container" style="display:none;"></div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
